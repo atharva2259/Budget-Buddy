@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Budget Buddy — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#0d0d18;color:#fff;overflow-x:hidden;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;background:radial-gradient(ellipse at 50% 0%,#1a2a1e,#0d0d18 70%);}
+.badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(29,185,119,.15);border:1px solid rgba(29,185,119,.3);color:#1DB977;border-radius:20px;padding:.35rem .85rem;font-size:.8rem;font-weight:600;margin-bottom:1.5rem;letter-spacing:.05em;}
+.hero h1{font-size:clamp(2.5rem,8vw,5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+.hero h1 span{color:#1DB977;}
+.hero p{font-size:1.1rem;color:#9a9ab0;max-width:540px;margin:0 auto 2.5rem;line-height:1.7;}
+.cta-group{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn-main{padding:.9rem 2rem;background:#1DB977;color:#fff;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s;}
+.btn-main:hover{background:#0f6e56;transform:translateY(-1px);}
+.btn-outline{padding:.9rem 2rem;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s;}
+.btn-outline:hover{background:rgba(255,255,255,.05);}
+
+.mockup{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:1.5rem;margin:4rem auto 0;max-width:360px;}
+.mock-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.mock-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;}
+.mock-logo span{color:#1DB977;}
+.mock-hero{background:linear-gradient(135deg,#0f2027,#1a2a3a);border-radius:16px;padding:1.25rem;margin-bottom:.75rem;}
+.mock-month{font-size:.65rem;opacity:.5;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.2rem;}
+.mock-amount{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:.15rem;}
+.mock-sub{font-size:.7rem;opacity:.5;margin-bottom:.75rem;}
+.mock-track{background:rgba(255,255,255,.12);border-radius:4px;height:6px;margin-bottom:.3rem;}
+.mock-fill{height:100%;border-radius:4px;background:#1DB977;width:68%;}
+.mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem;}
+.mock-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.75rem;}
+.mock-stat-label{font-size:.6rem;color:#9a9ab0;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem;}
+.mock-stat-val{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
+.mock-nav{display:flex;justify-content:space-around;background:rgba(255,255,255,.05);border-radius:12px;padding:.5rem;}
+.mock-nav-item{display:flex;flex-direction:column;align-items:center;gap:.15rem;font-size:.55rem;color:#9a9ab0;cursor:pointer;}
+.mock-nav-item.a{color:#1DB977;}
+.mock-dot{width:14px;height:14px;border-radius:4px;}
+.mock-dot.home{background:#1DB977;}
+.mock-dot.exp{background:#378add;}
+.mock-dot.loan{background:#7f77dd;}
+.mock-dot.sav{background:#d4537e;}
+.mock-dot.stat{background:#ef9f27;}
+.mock-dot.hist{background:#888780;}
+.mock-dot.set{background:#e24b4a;}
+
+.features{padding:5rem 1.5rem;max-width:1000px;margin:0 auto;}
+.features h2{font-size:2.2rem;font-weight:800;text-align:center;margin-bottom:.75rem;}
+.features-sub{text-align:center;color:#9a9ab0;margin-bottom:3rem;font-size:1rem;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;}
+.feat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:1.5rem;}
+.feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;}
+.feat-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem;}
+.feat-desc{font-size:.875rem;color:#9a9ab0;line-height:1.6;}
+
+.screens{padding:3rem 1.5rem;background:rgba(29,185,119,.03);}
+.screens h2{font-size:2rem;font-weight:800;text-align:center;margin-bottom:2.5rem;}
+.screens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:900px;margin:0 auto;}
+.screen-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.25rem;text-align:center;}
+.screen-icon{font-size:2rem;margin-bottom:.75rem;}
+.screen-name{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;}
+.screen-desc{font-size:.78rem;color:#9a9ab0;}
+
+.stack{padding:4rem 1.5rem;max-width:900px;margin:0 auto;text-align:center;}
+.stack h2{font-size:2rem;font-weight:800;margin-bottom:.75rem;}
+.stack-sub{color:#9a9ab0;margin-bottom:2rem;}
+.stack-pills{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;}
+.pill{padding:.5rem 1.1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;font-size:.85rem;}
+
+.footer{padding:2.5rem 1.5rem;text-align:center;border-top:1px solid rgba(255,255,255,.06);color:#9a9ab0;font-size:.85rem;}
+.footer strong{color:#1DB977;font-family:'Syne',sans-serif;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="badge">🎓 Built for College Students</div>
+  <h1>Meet <span>Budget</span><br>Buddy 💰</h1>
+  <p>The all-in-one expense tracker that helps you stay on budget, track loans, grow savings, and automatically alerts your parents when you overspend — twice.</p>
+  <div class="cta-group">
+    <a href="budget-buddy.html" class="btn-main">Open App →</a>
+    <a href="https://github.com" class="btn-outline" target="_blank">View on GitHub</a>
+  </div>
+
+  <div class="mockup">
+    <div class="mock-bar">
+      <div class="mock-logo">💰 Budget<span>Buddy</span></div>
+      <div style="font-size:.7rem;color:#9a9ab0;">Arjun · IIT Delhi</div>
+    </div>
+    <div class="mock-hero">
+      <div class="mock-month">JUNE 2026</div>
+      <div class="mock-amount">₹3,400 spent</div>
+      <div class="mock-sub">of ₹5,000 limit</div>
+      <div class="mock-track"><div class="mock-fill"></div></div>
+      <div style="font-size:.65rem;opacity:.4;">68% used</div>
+    </div>
+    <div class="mock-grid">
+      <div class="mock-stat"><div class="mock-stat-label">Remaining</div><div class="mock-stat-val" style="color:#1DB977;">₹1,600</div></div>
+      <div class="mock-stat"><div class="mock-stat-label">Money Lent</div><div class="mock-stat-val" style="color:#7f77dd;">₹500</div></div>
+      <div class="mock-stat"><div class="mock-stat-label">Expenses</div><div class="mock-stat-val" style="color:#ef9f27;">14</div></div>
+      <div class="mock-stat"><div class="mock-stat-label">Total Saved</div><div class="mock-stat-val" style="color:#1DB977;">₹2,000</div></div>
+    </div>
+    <div class="mock-nav">
+      <div class="mock-nav-item a"><div class="mock-dot home"></div>Home</div>
+      <div class="mock-nav-item"><div class="mock-dot exp"></div>Expenses</div>
+      <div class="mock-nav-item"><div class="mock-dot loan"></div>Loans</div>
+      <div class="mock-nav-item"><div class="mock-dot sav"></div>Savings</div>
+      <div class="mock-nav-item"><div class="mock-dot stat"></div>Stats</div>
+      <div class="mock-nav-item"><div class="mock-dot hist"></div>History</div>
+      <div class="mock-nav-item"><div class="mock-dot set"></div>Settings</div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Everything you need 🚀</h2>
+  <p class="features-sub">7 powerful screens, zero backend, all in one file.</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(29,185,119,.15);">💳</div>
+      <div class="feat-title">Smart Budget Tracking</div>
+      <div class="feat-desc">Set a monthly limit. Live progress bar turns amber at 80% and red when you exceed it. Instant warnings.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(229,74,74,.15);">📲</div>
+      <div class="feat-title">Parent Alert System</div>
+      <div class="feat-desc">Exceed your limit twice in 3 months? Budget Buddy auto-generates a WhatsApp message to your parents with your full expense list.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(127,119,221,.15);">🤝</div>
+      <div class="feat-title">Loan Tracker</div>
+      <div class="feat-desc">Log money given to friends. Track pending vs returned amounts. One tap to mark as returned.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(55,138,221,.15);">📊</div>
+      <div class="feat-title">Analytics</div>
+      <div class="feat-desc">6-month bar chart, category donut chart, biggest expense, avg spend, active days. Know your habits.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(212,83,126,.15);">🔐</div>
+      <div class="feat-title">Savings Locker</div>
+      <div class="feat-desc">Auto-deducts your savings on the 2nd of every month. Password-protected vault. Full deposit history.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon" style="background:rgba(239,159,39,.15);">📅</div>
+      <div class="feat-title">Monthly History</div>
+      <div class="feat-desc">Browse every past month. Expandable cards with mood indicators and a progress bar vs your limit.</div>
+    </div>
+  </div>
+</section>
+
+<section class="screens">
+  <h2>7 Screens 🖥️</h2>
+  <div class="screens-grid">
+    <div class="screen-card"><div class="screen-icon">🏠</div><div class="screen-name">Dashboard</div><div class="screen-desc">Live spending + 4 stat cards</div></div>
+    <div class="screen-card"><div class="screen-icon">💸</div><div class="screen-name">Expenses</div><div class="screen-desc">Log with category chips</div></div>
+    <div class="screen-card"><div class="screen-icon">🤝</div><div class="screen-name">Loans</div><div class="screen-desc">Money given tracker</div></div>
+    <div class="screen-card"><div class="screen-icon">🔐</div><div class="screen-name">Savings</div><div class="screen-desc">Password-locked vault</div></div>
+    <div class="screen-card"><div class="screen-icon">📊</div><div class="screen-name">Analytics</div><div class="screen-desc">Charts & quick stats</div></div>
+    <div class="screen-card"><div class="screen-icon">📅</div><div class="screen-name">History</div><div class="screen-desc">All past months</div></div>
+    <div class="screen-card"><div class="screen-icon">⚙️</div><div class="screen-name">Settings</div><div class="screen-desc">Edit everything inline</div></div>
+  </div>
+</section>
+
+<section class="stack">
+  <h2>Tech Stack 🛠️</h2>
+  <p class="stack-sub">Zero dependencies. No build step. Just open and run.</p>
+  <div class="stack-pills">
+    <div class="pill">HTML5</div>
+    <div class="pill">CSS3 (custom properties)</div>
+    <div class="pill">Vanilla JavaScript</div>
+    <div class="pill">Canvas API (charts)</div>
+    <div class="pill">window.storage (persistent)</div>
+    <div class="pill">WhatsApp API (wa.me)</div>
+    <div class="pill">Google Fonts (Syne + DM Sans)</div>
+    <div class="pill">Single-file app</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Made with ❤️ for broke college students everywhere.</p>
+  <p style="margin-top:.5rem;"><strong>Budget Buddy</strong> — because your hostel mess bill shouldn't be a mystery 🍛</p>
+</footer>
+
+</body>
+</html>

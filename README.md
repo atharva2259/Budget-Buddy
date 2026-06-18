@@ -1,202 +1,277 @@
-<div align="center">
+# Budget Buddy 💰
 
-<img src="https://em-content.zobj.net/source/apple/391/coin_1fa99.png" width="96"/>
+> Your money. Your buddy. Your future.
 
-# Budget Buddy
+[![CI](https://github.com/YOUR_ORG/budget-buddy/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_ORG/budget-buddy/actions/workflows/ci.yml)
+[![Deploy](https://github.com/YOUR_ORG/budget-buddy/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR_ORG/budget-buddy/actions/workflows/deploy.yml)
 
-### 💰 Student Expense Tracker • Savings Locker • Budget Companion
-
-Track spending. Build saving habits. Stay financially aware.
-
-<br>
-
-![Built with HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge\&logo=html5\&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge\&logo=css3\&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge\&logo=javascript\&logoColor=black)
-![PWA Ready](https://img.shields.io/badge/PWA-Coming_Soon-6D28D9?style=for-the-badge)
-![MIT License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)
-
-<br>
-
-A lightweight student finance companion built to help manage **expenses, loans, savings, and monthly budgets** — directly inside the browser.
-
-<br>
-
-**No login • No backend • No tracking • Your data stays local**
-
-</div>
+A mobile-first PWA for student expense tracking with auto-savings, loan management, and parental budget alerts.
 
 ---
 
-# ✨ Core Features
+## Tech Stack
 
-<table>
-<tr>
-<td width="50%">
-
-### 📊 Smart Dashboard
-
-Monitor monthly usage with clean visual progress and spending insights.
-
-</td>
-
-<td width="50%">
-
-### 🧾 Expense Tracking
-
-Add expenses instantly with categories and persistent history.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-### 👥 Loan Manager
-
-Track borrowed or lent money with outstanding summaries.
-
-</td>
-
-<td>
-
-### 🔐 Savings Locker
-
-Automatically reserve savings and keep them separated.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-### 🚨 Budget Alerts
-
-Receive warnings before crossing spending limits.
-
-</td>
-
-<td>
-
-### 🎓 Guided Setup
-
-Quick onboarding with personalized preferences.
-
-</td>
-</tr>
-
-</table>
+| Layer     | Technology                                                      |
+|-----------|-----------------------------------------------------------------|
+| Frontend  | React 18, TypeScript, Vite, Tailwind CSS, React Query, Zustand |
+| Backend   | Node.js, Express, TypeScript, Drizzle ORM                      |
+| Database  | PostgreSQL 16                                                   |
+| Auth      | JWT (access + httpOnly refresh cookie), bcrypt, OTP via email  |
+| PWA       | vite-plugin-pwa, Workbox                                        |
+| CI/CD     | GitHub Actions → Vercel (web) + Railway (API)                  |
+| Testing   | Vitest + React Testing Library (frontend) · Jest + Supertest (API) |
 
 ---
 
-# 🖥 Experience
+## Project Structure
 
-```text
-🏠 Dashboard
-├── Monthly Budget
-├── Expense Summary
-├── Savings Locker
-└── Smart Alerts
-
-💸 Expenses
-├── Add Transaction
-├── Categories
-└── Expense History
-
-🏦 Loans
-├── Given
-├── Returned
-└── Outstanding
+```
+budget-buddy/
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml          # Lint + test + build on every push
+│   │   └── deploy.yml      # Deploy to Vercel + Railway on main
+│   ├── SECRETS.md          # Required GitHub secrets documentation
+│   └── pull_request_template.md
+├── apps/
+│   ├── web/                # React PWA frontend
+│   │   ├── src/
+│   │   │   ├── api/        # Typed API client + functions
+│   │   │   ├── components/ # Shared UI components
+│   │   │   ├── features/   # Route-level screens
+│   │   │   ├── lib/        # Utils, schemas, helpers
+│   │   │   ├── store/      # Zustand stores
+│   │   │   ├── styles/     # CSS tokens
+│   │   │   └── test/       # Unit tests
+│   │   ├── .eslintrc.cjs
+│   │   ├── tailwind.config.js
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   └── api/                # Express REST API
+│       ├── src/
+│       │   ├── __tests__/  # Integration tests
+│       │   ├── db/         # Drizzle schema + seed
+│       │   ├── jobs/       # Savings cron job
+│       │   ├── middleware/  # Auth, error handler, validation
+│       │   └── routes/     # All REST routes
+│       ├── .eslintrc.cjs
+│       ├── jest.config.ts
+│       ├── nodemon.json
+│       └── tsconfig.json
+├── packages/
+│   └── types/              # Shared TypeScript types
+├── .husky/                 # Git hooks (pre-commit, commit-msg)
+├── .prettierrc             # Prettier config
+├── .vscode/                # VS Code settings + recommended extensions
+├── commitlint.config.cjs   # Conventional commit enforcement
+├── vercel.json             # Vercel deployment config
+└── railway.toml            # Railway deployment config
 ```
 
 ---
 
-# 🚀 Quick Start
+## Getting Started
 
-Clone and run locally.
+### Prerequisites
+
+- Node.js ≥ 20
+- PostgreSQL 16 running locally
+- npm ≥ 10
+
+### 1. Clone & install
 
 ```bash
-git clone https://github.com/yourusername/budget-buddy.git
+git clone https://github.com/YOUR_ORG/budget-buddy.git
 cd budget-buddy
+npm install   # installs all workspaces
 ```
 
-Open:
+### 2. Configure the API
 
 ```bash
-# macOS
-open index.html
-
-# Windows
-start index.html
-
-# Linux
-xdg-open index.html
+cd apps/api
+cp .env.example .env
+# Edit .env — at minimum set:
+#   DATABASE_URL
+#   JWT_SECRET  (64+ random chars)
+#   COOKIE_SECRET (64+ random chars)
 ```
 
-✅ Ready to use.
+Generate secrets:
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```
 
-No package installation required.
-
----
-
-# 🛠 Tech Stack
-
-| Layer      | Technology            |
-| ---------- | --------------------- |
-| UI         | HTML · CSS            |
-| Logic      | Vanilla JavaScript    |
-| Icons      | Tabler Icons          |
-| Typography | Syne · DM Sans        |
-| Storage    | Browser Local Storage |
-
----
-
-# 💾 Data Storage
-
-Everything remains on the device.
-
-| Storage Key  | Description           |
-| ------------ | --------------------- |
-| `bb-profile` | User profile & limits |
-| `bb-exp`     | Expense records       |
-| `bb-loans`   | Loan history          |
-| `bb-sav`     | Savings ledger        |
-| `bb-breach`  | Budget warnings       |
-
----
-
-# 🗺 Roadmap
-
-### Near Term
-
-* [ ] Monthly analytics
-* [ ] Spending charts
-* [ ] CSV export
-* [ ] PDF reports
-
-### Future
-
-* [ ] Dark mode
-* [ ] Installable PWA
-* [ ] Recurring expenses
-* [ ] Cloud sync
-
----
-
-# 🤝 Contributing
-
-Contributions, ideas, and improvements are welcome.
+### 3. Push database schema
 
 ```bash
-Fork → Create Branch → Commit → Push → Pull Request
+cd apps/api
+npm run db:push
 ```
+
+### 4. Seed with demo data (optional)
+
+```bash
+cd apps/api
+npm run db:seed
+# Login: demo@budgetbuddy.in / password123
+# Savings PIN: 1234
+```
+
+### 5. Start development servers
+
+**Terminal 1 — API** (port 3000):
+```bash
+cd apps/api && npm run dev
+```
+
+**Terminal 2 — Frontend** (port 5173):
+```bash
+cd apps/web && npm run dev
+```
+
+Open: http://localhost:5173
 
 ---
 
-<div align="center">
+## Available Scripts (root)
 
-### Built for students who want better control over money.
+| Script | Description |
+|--------|-------------|
+| `npm run dev:web` | Start frontend dev server |
+| `npm run dev:api` | Start API dev server |
+| `npm run lint` | Lint all workspaces |
+| `npm run format` | Format all files with Prettier |
+| `npm run format:check` | Check formatting (used in CI) |
+| `npm test` | Run all tests |
+| `npm run typecheck` | TypeScript check all workspaces |
+| `npm run build` | Production build all workspaces |
 
-⭐ Star the project if you found it useful.
+---
 
-</div>
+## Git Conventions
+
+This project uses **conventional commits** enforced by commitlint + Husky:
+
+```
+feat: add expense category filter
+fix: correct budget pct calculation
+chore: update drizzle-orm to v0.34
+test: add loan summary integration test
+```
+
+Pre-commit hooks run **lint-staged** (ESLint + Prettier on staged files only).
+
+---
+
+## CI/CD
+
+### CI Pipeline (`ci.yml`)
+Runs on every push to any branch:
+1. **Lint + Typecheck** — ESLint + `tsc --noEmit` for both apps
+2. **API Tests** — Jest integration tests (requires PostgreSQL service)
+3. **Frontend Tests** — Vitest unit tests with coverage
+4. **Build** — Production build both apps
+
+### Deploy Pipeline (`deploy.yml`)
+Runs on push to `main` only (after CI passes):
+1. Deploy frontend → **Vercel**
+2. Deploy API → **Railway**
+3. Run DB migrations
+4. Smoke test health endpoints
+
+See [.github/SECRETS.md](.github/SECRETS.md) for required GitHub secrets.
+
+---
+
+## API Reference
+
+Base URL: `http://localhost:3000/api/v1`
+
+### Auth
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/auth/register` | ✗ | Register new user |
+| POST | `/auth/verify-email` | JWT | Verify email OTP |
+| POST | `/auth/login` | ✗ | Login |
+| POST | `/auth/refresh` | Cookie | Refresh access token |
+| POST | `/auth/logout` | JWT | Logout current session |
+| POST | `/auth/logout-all` | JWT | Logout all sessions |
+| POST | `/auth/forgot-password` | ✗ | Request password reset |
+| POST | `/auth/reset-password` | ✗ | Reset password with OTP |
+| POST | `/auth/resend-otp` | JWT | Resend OTP code |
+
+### User
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/user/profile` | Get profile |
+| PATCH | `/user/profile` | Update name / parent phone |
+| PATCH | `/user/change-password` | Change password |
+| DELETE | `/user/account` | Delete account (permanent) |
+
+### Expenses
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/expenses?month=YYYY-MM` | List expenses |
+| GET | `/expenses/summary?month=YYYY-MM` | Category breakdown |
+| POST | `/expenses` | Add expense |
+| PATCH | `/expenses/:id` | Edit expense |
+| DELETE | `/expenses/:id` | Delete expense (soft) |
+
+### Budget
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/budget?month=YYYY-MM` | Get budget status + pct |
+| POST | `/budget` | Set / update monthly limit |
+| GET | `/budget/history` | Past 12 months |
+
+### Loans
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/loans` | List loans |
+| GET | `/loans/summary` | Outstanding total |
+| POST | `/loans` | Record a loan |
+| PATCH | `/loans/:id` | Update status / details |
+| DELETE | `/loans/:id` | Delete loan (soft) |
+
+### Savings
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/savings/status` | Savings config + next deduction |
+| POST | `/savings/setup` | Configure amount + PIN |
+| POST | `/savings/verify-pin` | Verify PIN → get balance |
+| GET | `/savings/ledger` | Deposit history |
+| PATCH | `/savings/pause` | Pause / resume |
+
+### Alerts
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/alerts` | Alert log |
+
+---
+
+## Phase 1 Checklist ✅
+
+- [x] Monorepo (`/apps/web`, `/apps/api`, `/packages/types`)
+- [x] React PWA scaffold (Vite, Tailwind, TypeScript, all deps)
+- [x] Express API scaffold (TypeScript, Drizzle, all deps)
+- [x] CSS design tokens (`:root` + Tailwind config)
+- [x] Shared TypeScript types (`@budget-buddy/types`)
+- [x] Database schema (7 tables, enums, indexes)
+- [x] GitHub Actions CI (lint → test → build)
+- [x] GitHub Actions deploy (Vercel + Railway + migrations + smoke test)
+- [x] ESLint configs (frontend + API)
+- [x] Prettier config (root)
+- [x] Husky pre-commit (lint-staged)
+- [x] Husky commit-msg (commitlint)
+- [x] commitlint config (conventional commits)
+- [x] VS Code settings + recommended extensions
+- [x] nodemon.json for API hot-reload
+- [x] `.env.example` with all required variables
+- [x] `vercel.json` deployment config
+- [x] `railway.toml` deployment config
+- [x] `.gitignore`
+- [x] DB seed script with realistic demo data
+- [x] API integration tests (auth, expenses, budget, loans, savings)
+- [x] Frontend unit tests (utils, schemas)
+- [x] README with CI badge, full setup, API reference
